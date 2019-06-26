@@ -10,9 +10,10 @@ sphere_rad = 5
 
 # Create a sphere
 sphereSource = vtkSphereSource()
-sphereSource.SetThetaResolution(2000)
-sphereSource.SetPhiResolution(1000)
+sphereSource.SetThetaResolution(200)
+sphereSource.SetPhiResolution(100)
 sphereSource.SetRadius(sphere_rad)
+# sphereSource.LatLongTessellationOn()
 
 plane = vtkPlane()
 plane.SetOrigin(planePoint)
@@ -47,7 +48,7 @@ clipper3.Update()
 
 
 
-polyData = clipper3.GetOutput()
+polyData = clipper1.GetOutput()
 
 
 
@@ -60,7 +61,7 @@ clipActor.GetProperty().SetColor(1.0000, 0.3882, 0.2784)
 clipActor.GetProperty().SetInterpolationToFlat()
 
 # Now extract feature edges
-boundaryEdges = vtkFeatureEdges()
+"""boundaryEdges = vtkFeatureEdges()
 boundaryEdges.SetInputData(polyData)
 
 boundaryEdges.BoundaryEdgesOn()
@@ -83,7 +84,7 @@ boundaryMapper.SetInputData(boundaryPoly)
 boundaryActor = vtkActor()
 boundaryActor.SetMapper(boundaryMapper)
 boundaryActor.GetProperty().SetColor(0.8900, 0.8100, 0.3400)
-
+"""
 # create render window, renderer and interactor
 renderWindow = vtkRenderWindow()
 renderer = vtkRenderer()
@@ -95,7 +96,7 @@ iren.SetRenderWindow(renderWindow)
 renderer.SetBackground(.2, .3, .4)
 # add our actor to the renderer
 renderer.AddActor(clipActor)
-renderer.AddActor(boundaryActor)
+# renderer.AddActor(boundaryActor)
 # Generate an interesting view
 renderer.ResetCamera()
 # renderer.GetActiveCamera().Azimuth(30)
