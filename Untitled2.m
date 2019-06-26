@@ -1,9 +1,14 @@
-
-
-rad = 5;
-
-phi = linspace(0, pi, 20);
-theta = linspace(0, 2 * pi, 40);
-x = outer(sin(theta), cos(phi));
-y = np.outer(np.sin(theta), np.sin(phi))
-z = np.outer(np.cos(theta), np.ones_like(phi))
+r = 0:1:60;
+theta = 0:pi/30:2*pi;
+for i = 1:61
+    r(i) = i-1;
+    if (r(i) < 3)
+        sigmar(i) = -6;
+    else
+        sigmar(i) = ((1-((7^2)/(r(i)^2)))*-14);   %multiplier is a predefined constant
+    end
+end
+[x,y] = pol2cart(theta, r);
+[X,Y] = meshgrid(x,y);
+sigmar = repmat(sigmar,61,1);
+surf(X,Y,sigmar)
